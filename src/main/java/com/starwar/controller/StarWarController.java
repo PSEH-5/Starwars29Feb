@@ -1,17 +1,13 @@
 package com.starwar.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.starwar.domain.SearchCriterias;
-import com.starwar.domain.SearchResultDTO;
+import com.starwar.domain.SearchResults;
 import com.starwar.service.VehicleService;
 
 @RestController
@@ -40,15 +36,17 @@ public class StarWarController {
 	
 	
 	@GetMapping(value="search")
-	public List<SearchResultDTO> fetchResult(@RequestParam(value ="type") String type, @RequestParam(value="name") String name) {
-		List<SearchResultDTO> searchResultDTOs =  new ArrayList<SearchResultDTO>();
+	public SearchResults fetchResult(@RequestParam(value ="type") String type, @RequestParam(value="name") String name) {
+		SearchResults searchResults =  new SearchResults();
 		System.out.println(type +" ################"+name);
 		System.out.println(SEARCH_TYPE.VEHICLES.name());
 		if(type.equalsIgnoreCase(SEARCH_TYPE.VEHICLES.name())) {
-			searchResultDTOs = vehicleService.fetchDetail(name);
+			searchResults = vehicleService.fetchDetail(name);
+			searchResults.setName(name);
+			searchResults.setType(type);
 		}
 		
-		return searchResultDTOs;
+		return searchResults;
 		
 	}
 	
