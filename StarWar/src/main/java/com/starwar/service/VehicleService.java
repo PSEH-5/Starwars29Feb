@@ -25,6 +25,7 @@ public class VehicleService {
 		List<SearchResultDTO>  searchResultDTOs = new ArrayList<SearchResultDTO>();		
 		ResponseEntity<String> response
 		  = restTemplate.getForEntity(vehicleUrl, String.class);
+	
 		
 		System.out.println("========="+response.getBody());
 		
