@@ -38,14 +38,11 @@ public class StarWarController {
 	@GetMapping(value="search")
 	public SearchResults fetchResult(@RequestParam(value ="type") String type, @RequestParam(value="name") String name) {
 		SearchResults searchResults =  new SearchResults();
-		System.out.println(type +" ################"+name);
-		System.out.println(SEARCH_TYPE.VEHICLES.name());
 		if(type.equalsIgnoreCase(SEARCH_TYPE.VEHICLES.name())) {
 			searchResults = vehicleService.fetchDetail(name);
 			searchResults.setName(name);
 			searchResults.setType(type);
-		}
-		
+		}		
 		return searchResults;
 		
 	}
